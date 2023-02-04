@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+</head>
+<body class="bg-secondary">
+	<div class="container mt-5">
+		<form th:action="@{/lista/inicio}" th:object=${numero} method="post" class="text-center m-3">
+			<label class="col-sm-2 col-form-label">Número 1</label>
+			<input type="number" th:field="*{numero1}" class="form-control">
+			<br>
+			<label class="col-sm-2 col-form-label">Número 2</label>
+			<input type="number" th:field="*{numero2}" class="form-control">
+			<br>
+				<input type="submit" value="Sumar" class="btn btn-primary mt-2">
+			
+		</form>
+		
+		<div class="container-xxl" th:if="${!numeros.isEmpty()}">
+			<table class="table table-striped table-bordered text-center">
+				<thead>
+					<tr>
+						<td>Número 1</td>
+						<td>Número 2</td>
+						<td>Resultado</td>
+						<td>Eliminar</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="sumar:${numeros}">
+					<td th:text="${sumar.numero1}"></td>
+					<td th:text="${sumar.numero2}"></td>
+					<td th:text="${sumar.suma}"></td>
+					<td><a class="btn btn-danger btn-xs"
+								th:href="@{/lista/eliminar/}+${sumar.id}" th:text="eliminar"
+								onclick="return confirm('Estas seguro que eliminaras');"><i class="bi bi-trash-fill"></i></a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
